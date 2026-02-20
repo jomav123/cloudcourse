@@ -1,4 +1,6 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+    "appService.defaultWebAppToDeploy": "/subscriptions/a81a6f2a-e372-4374-ba9d-b28af69558bb/resourceGroups/appsvc_linux_polandcentral/providers/Microsoft.Web/sites/joapp1",
+    "appService.deploySubpath": "."
 }
