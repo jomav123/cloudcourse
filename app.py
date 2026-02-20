@@ -1,3 +1,4 @@
+from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -8,6 +9,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///people.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 # Database model
 class Person(db.Model):
