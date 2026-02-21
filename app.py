@@ -1,10 +1,16 @@
 import os
+from azure.storage.blob import BlobServiceClient
 from sqlalchemy.exc import IntegrityError
 from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+# Azure Blob Storage configuration
+conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+blob_service = BlobServiceClient.from_connection_string(conn_str)
+container_name = "image" 
 
 # Database configuration
 # Read Azure SQL connection string from environment variable
