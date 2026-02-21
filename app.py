@@ -8,11 +8,15 @@ app = Flask(__name__)
 
 # Azure Blob Storage configuration
 conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-blob_service = BlobServiceClient.from_connection_string(conn_str)
-blob_service = None 
+blob_service = None
 container_name = "image"
-if conn_str: 
-    blob_service = BlobServiceClient.from_connection_string(conn_str)
+
+if conn_str:
+    try:
+        blob_service = BlobServiceClient.from_connection_string(conn_str)
+    except Exception as e:
+        print("Blob init failed:", e)
+        blob_service = None
 
 # Database configuration
 # Read Azure SQL connection string from environment variable
