@@ -1,6 +1,5 @@
 import os
 from azure.storage.blob import BlobServiceClient
-from sqlalchemy.exc import IntegrityError
 from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
