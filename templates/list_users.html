@@ -11,7 +11,9 @@
             <li>
                 {{ person.firstname }} {{ person.surname }} — {{ person.email }}
                 <a href="/edit/{{ person.id }}">Edit</a>
-                <a href="/delete/{{ person.id }}">Delete</a>
+                <form method="post" action="{{ url_for('delete_user', id=person.id) }}" style="display:inline">
+                  <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                </form>
             </li>
         {% endfor %}
     </ul>
