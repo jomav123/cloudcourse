@@ -1,3 +1,4 @@
+import os
 from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -5,7 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # Database configuration
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///people.db"
+database_url = os.getenv("DATABASE_URL", "sqlite:///people.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
@@ -79,4 +81,5 @@ def delete_user(id):
     return redirect(url_for("list_users"))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "False").lower() == "true"
+    app.run(host="0.0.0.0", port=5000, debug=debug_mode)
