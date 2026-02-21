@@ -31,6 +31,8 @@ class Person(db.Model):
     telephone = db.Column(db.String(20), nullable=False)
     address = db.Column(db.String(200), nullable=False)
     postal_code = db.Column(db.String(20), nullable=False)
+    image_url = db.Column(db.String(255))
+
 
     def __repr__(self):
         return f"<Person {self.firstname} {self.surname}>"
