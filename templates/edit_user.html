@@ -5,15 +5,29 @@
 </head>
 <body>
     <h1>Edit User</h1>
-    <form method="POST">
+
+    <!-- enctype added to allow optional image update -->
+    <form method="POST" enctype="multipart/form-data">
         <input name="firstname" value="{{ person.firstname }}" required><br>
         <input name="surname" value="{{ person.surname }}" required><br>
         <input name="email" value="{{ person.email }}" required><br>
         <input name="telephone" value="{{ person.telephone }}" required><br>
         <input name="address" value="{{ person.address }}" required><br>
         <input name="postal_code" value="{{ person.postal_code }}" required><br>
+
+        <!-- Show current image if exists -->
+        {% if person.image_url %}
+            <p>Current Image:</p>
+            <img src="{{ person.image_url }}" width="120"><br><br>
+        {% endif %}
+
+        <!-- Optional new image -->
+        <label>Upload New Image (optional):</label>
+        <input type="file" name="image"><br><br>
+
         <button type="submit">Save Changes</button>
     </form>
+
     <a href="/users">Back to list</a>
 </body>
 </html>

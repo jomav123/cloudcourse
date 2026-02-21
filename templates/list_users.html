@@ -5,14 +5,23 @@
 </head>
 <body>
     <h1>All Users</h1>
+
     <a href="/add">Add New User</a>
+
     <ul>
         {% for person in people %}
             <li>
+                <!-- Show image if exists -->
+                {% if person.image_url %}
+                    <img src="{{ person.image_url }}" width="80" style="vertical-align: middle;">
+                {% endif %}
+
                 {{ person.firstname }} {{ person.surname }} — {{ person.email }}
+
                 <a href="/edit/{{ person.id }}">Edit</a>
+
                 <form method="post" action="{{ url_for('delete_user', id=person.id) }}" style="display:inline">
-                  <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                    <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
                 </form>
             </li>
         {% endfor %}

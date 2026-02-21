@@ -5,15 +5,23 @@
 </head>
 <body>
     <h1>Add New User</h1>
-    <form method="POST">
+
+    <!-- IMPORTANT: enctype added for file upload -->
+    <form method="POST" enctype="multipart/form-data">
         <input name="firstname" placeholder="First Name" required><br>
         <input name="surname" placeholder="Surname" required><br>
         <input name="email" placeholder="Email" required><br>
         <input name="telephone" placeholder="Telephone" required><br>
         <input name="address" placeholder="Address" required><br>
         <input name="postal_code" placeholder="Postal Code" required><br>
+
+        <!-- New: Image upload field -->
+        <label>Profile Image:</label>
+        <input type="file" name="image"><br><br>
+
         <button type="submit">Add User</button>
     </form>
+
     <a href="/users">Back to list</a>
 </body>
 </html>
