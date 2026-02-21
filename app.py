@@ -10,7 +10,10 @@ app = Flask(__name__)
 # Azure Blob Storage configuration
 conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 blob_service = BlobServiceClient.from_connection_string(conn_str)
-container_name = "image" 
+blob_service = None 
+if conn_str: 
+    blob_service = BlobServiceClient.from_connection_string(conn_str) 
+    container_name = "image"
 
 # Database configuration
 # Read Azure SQL connection string from environment variable
