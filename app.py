@@ -6,13 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# use DATABASE_URL if set (for Azure), fallback to sqlite for local dev
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
-    "DATABASE_URL", "sqlite:///people.db"
-)
 # Database configuration
-database_url = os.getenv("DATABASE_URL", "sqlite:///people.db")
-app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+# Read Azure SQL connection string from environment variable
+# use DATABASE_URI set in Azure, fallback to sqlite for local dev
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI", "sqlite:///people.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
