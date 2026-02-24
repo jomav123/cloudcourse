@@ -5,7 +5,15 @@
 </head>
 <body>
 
-{% if not logged_in %}
+{% if mode == "register" %}
+    <h2>Create Admin Account</h2>
+    <form method="POST" action="/admin/register">
+        <input type="text" name="username" placeholder="Choose username" required>
+        <input type="password" name="password" placeholder="Choose password" required>
+        <button type="submit">Register</button>
+    </form>
+
+{% elif mode == "login" %}
     <h2>Admin Login</h2>
     <form method="POST" action="/admin/login">
         <input type="text" name="username" placeholder="Username" required>
@@ -13,8 +21,7 @@
         <button type="submit">Login</button>
     </form>
 
-{% else %}
-
+{% elif mode == "dashboard" %}
     <h1>User List</h1>
 
     <form method="POST" action="/add">

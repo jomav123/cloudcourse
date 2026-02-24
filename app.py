@@ -43,16 +43,32 @@ class Admin(db.Model):
 
 
 # Admin login route
-@app.route('/admin/login', methods=['POST'])
+@app.route("/admin/login", methods=["POST"])
 def admin_login():
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form["username"]
+    password = request.form["password"]
 
-    if username == ADMIN_USER and password == ADMIN_PASS:
-        session['admin'] = True
+    admin = Admin.query.filter_by(username=username, password=password).first()
+
+    if admin:
+        session["admin"] = True
         return redirect("/")
-
     return "Invalid credentials", 401
+
+
+# Admin registration route (only for the first admin)
+@app.route("/admin/register", methods=["POST"])
+def admin_register():
+    username = request.form["username"]
+    password = request.form["password"]
+
+    admin = Admin(username=username, password=password)
+    db.session.add(admin)
+    db.session.commit()
+
+    session["admin"] = True
+    return redirect("/")
+
 
 # Decorator to check if the user is an admin
 def admin_required(f): 
@@ -74,11 +90,19 @@ def admin_users():
 # Create the database tables if they don't exist  
 @app.route("/")
 def home():
-    if not session.get("admin"):
-        return render_template("index.html", logged_in=False)
+    admin = Admin.query.first()
 
+    # No admin exists → show registration form
+    if admin is None:
+        return render_template("index.html", mode="register")
+
+    # Admin exists but not logged in → show login form
+    if not session.get("admin"):
+        return render_template("index.html", mode="login")
+
+    # Admin logged in → show user form + list
     users = User.query.all()
-    return render_template("index.html", users=users, logged_in=True)
+    return render_template("index.html", mode="dashboard", users=users)
 
 # Route for handling the login page logic 
 @app.route('/add', methods=['POST'])
