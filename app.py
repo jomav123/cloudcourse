@@ -1,4 +1,5 @@
 import os
+from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
@@ -42,6 +43,14 @@ def admin_login():
         return "Invalid credentials", 401
     return render_template('admin_login.html')
 
+# Decorator to check if the user is an admin
+def admin_required(f): 
+    @wraps(f) 
+    def wrapper(*args, **kwargs): 
+        if not session.get('admin'): 
+            return redirect(url_for('admin_login')) 
+        return f(*args, **kwargs) 
+    return wrapper
 
 # Decorator to protect admin routes
 @app.route('/admin/users')
