@@ -43,6 +43,14 @@ def admin_login():
     return render_template('admin_login.html')
 
 
+# Decorator to protect admin routes
+@app.route('/admin/users')
+@admin_required
+def admin_users():
+    users = User.query.all()
+    return render_template('admin_users.html', users=users)
+
+
 # Create the database tables if they don't exist  
 @app.route("/")
 def home():
