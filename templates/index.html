@@ -16,14 +16,19 @@
         <button type="submit">Add User</button>
     </form>
 
-
+    <h2>Existing Users</h2>
     <ul>
         {% for user in users %}
         <li>
-            {{ user.name }}
+            {{ user.firstname }} {{ user.surname }} — {{ user.email }}
 
             <form action="/update/{{ user.id }}" method="POST" style="display:inline;">
-                <input type="text" name="name" placeholder="New name" required>
+                <input type="text" name="firstname" placeholder="First name" value="{{ user.firstname }}" required>
+                <input type="text" name="surname" placeholder="Surname" value="{{ user.surname }}" required>
+                <input type="email" name="email" placeholder="Email" value="{{ user.email }}" required>
+                <input type="text" name="telephone" placeholder="Telephone" value="{{ user.telephone }}" required>
+                <input type="text" name="address" placeholder="Address" value="{{ user.address }}" required>
+                <input type="text" name="postalcode" placeholder="Postal code" value="{{ user.postalcode }}" required>
                 <button type="submit">Update</button>
             </form>
 

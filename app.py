@@ -97,9 +97,17 @@ def add_user():
 @app.route("/update/<int:id>", methods=["POST"])
 def update_user(id):
     user = User.query.get(id)
-    user.name = request.form["name"]
+
+    user.firstname = request.form["firstname"]
+    user.surname = request.form["surname"]
+    user.email = request.form["email"]
+    user.telephone = request.form["telephone"]
+    user.address = request.form["address"]
+    user.postalcode = request.form["postalcode"]
+
     db.session.commit()
     return redirect(url_for("home"))
+
 
 # Route for deleting a user
 @app.route("/delete/<int:id>")
