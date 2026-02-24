@@ -1,4 +1,5 @@
 import os
+from flask_migrate import Migrate
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -18,8 +19,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = os.getenv("SECRET_KEY") 
 ADMIN_USER = os.getenv("ADMIN_USER") 
 ADMIN_PASS = os.getenv("ADMIN_PASS")
+
 # Initialize the database
 db = SQLAlchemy(app)
+
+# Initialize Flask-Migrate
+migrate = Migrate(app, db)
 
 # Define the User model
 class User(db.Model):
