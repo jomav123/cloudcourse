@@ -35,6 +35,12 @@ class User(db.Model):
     telephone = db.Column(db.String(20))
     address = db.Column(db.String(200))
     postalcode = db.Column(db.String(20))
+# Define the Admin model
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+
 
 # Admin login route
 @app.route('/admin/login', methods=['POST'])
