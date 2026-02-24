@@ -4,6 +4,17 @@
     <title>User CRUD</title>
 </head>
 <body>
+
+{% if not logged_in %}
+    <h2>Admin Login</h2>
+    <form method="POST" action="/admin/login">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+{% else %}
+
     <h1>User List</h1>
 
     <form method="POST" action="/add">
@@ -23,12 +34,12 @@
             {{ user.firstname }} {{ user.surname }} — {{ user.email }}
 
             <form action="/update/{{ user.id }}" method="POST" style="display:inline;">
-                <input type="text" name="firstname" placeholder="First name" value="{{ user.firstname }}" required>
-                <input type="text" name="surname" placeholder="Surname" value="{{ user.surname }}" required>
-                <input type="email" name="email" placeholder="Email" value="{{ user.email }}" required>
-                <input type="text" name="telephone" placeholder="Telephone" value="{{ user.telephone }}" required>
-                <input type="text" name="address" placeholder="Address" value="{{ user.address }}" required>
-                <input type="text" name="postalcode" placeholder="Postal code" value="{{ user.postalcode }}" required>
+                <input type="text" name="firstname" value="{{ user.firstname }}" required>
+                <input type="text" name="surname" value="{{ user.surname }}" required>
+                <input type="email" name="email" value="{{ user.email }}" required>
+                <input type="text" name="telephone" value="{{ user.telephone }}" required>
+                <input type="text" name="address" value="{{ user.address }}" required>
+                <input type="text" name="postalcode" value="{{ user.postalcode }}" required>
                 <button type="submit">Update</button>
             </form>
 
@@ -36,6 +47,10 @@
         </li>
         {% endfor %}
     </ul>
+
+    <p><a href="/admin/logout">Logout</a></p>
+
+{% endif %}
 
 </body>
 </html>

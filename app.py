@@ -37,16 +37,16 @@ class User(db.Model):
     postalcode = db.Column(db.String(20))
 
 # Admin login route
-@app.route('/admin/login', methods=['GET', 'POST'])
+@app.route('/admin/login', methods=['POST'])
 def admin_login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if username == ADMIN_USER and password == ADMIN_PASS:
-            session['admin'] = True
-            return redirect('/admin/users')
-        return "Invalid credentials", 401
-    return render_template('admin_login.html')
+    username = request.form['username']
+    password = request.form['password']
+
+    if username == ADMIN_USER and password == ADMIN_PASS:
+        session['admin'] = True
+        return redirect("/")
+
+    return "Invalid credentials", 401
 
 # Decorator to check if the user is an admin
 def admin_required(f): 
@@ -68,8 +68,11 @@ def admin_users():
 # Create the database tables if they don't exist  
 @app.route("/")
 def home():
+    if not session.get("admin"):
+        return render_template("index.html", logged_in=False)
+
     users = User.query.all()
-    return render_template("index.html", users=users)
+    return render_template("index.html", users=users, logged_in=True)
 
 # Route for handling the login page logic 
 @app.route('/add', methods=['POST'])
