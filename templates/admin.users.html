@@ -1,0 +1,18 @@
+<h2>Registered Users</h2>
+<table>
+  <tr>
+    <th>First name</th><th>Surname</th><th>Email</th>
+    <th>Telephone</th><th>Address</th><th>Postal code</th>
+  </tr>
+  {% for u in users %}
+  <tr>
+    <td>{{ u.firstname }}</td>
+    <td>{{ u.surname }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.telephone }}</td>
+    <td>{{ u.address }}</td>
+    <td>{{ u.postalcode }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{{ url_for('admin_logout') }}">Logout</a>
