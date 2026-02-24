@@ -29,12 +29,12 @@ migrate = Migrate(app, db)
 # Define the User model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    firstname = db.Column(db.String(100), nullable=False)
-    surname = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    telephone = db.Column(db.String(20), nullable=False)
-    address = db.Column(db.String(200), nullable=False)
-    postalcode = db.Column(db.String(20), nullable=False)
+    firstname = db.Column(db.String(100))
+    surname = db.Column(db.String(100))
+    email = db.Column(db.String(120))
+    telephone = db.Column(db.String(20))
+    address = db.Column(db.String(200))
+    postalcode = db.Column(db.String(20))
 
 # Admin login route
 @app.route('/admin/login', methods=['GET', 'POST'])
