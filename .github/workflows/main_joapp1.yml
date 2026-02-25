@@ -73,6 +73,7 @@ jobs:
         with:
           app-name: 'joApp1'
           slot-name: 'Production'
-          package: ./cloudcourse
+          package: .
 
           
+
