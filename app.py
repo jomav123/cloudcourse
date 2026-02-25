@@ -68,6 +68,14 @@ def admin_register():
 
     session["admin"] = True
     return redirect("/")
+# Route to test database connection
+@app.route("/test-db")
+def test_db():
+    try:
+        result = db.session.execute("SELECT 1").scalar()
+        return f"Database connection OK! Result: {result}"
+    except Exception as e:
+        return f"Database connection FAILED: {str(e)}"
 
 
 # Decorator to check if the user is an admin
