@@ -1,3 +1,2 @@
-# cloudcourse
-create a website with azure deployment
-not simple!
+Full CRUD web application built with Flask and SQLAlchemy.  
+Includes authentication, form handling, and deployment to Azure App Service.
